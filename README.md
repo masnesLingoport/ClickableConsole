@@ -1,7 +1,7 @@
-ErrorLinkyThing
+ClickableConsole (Previously ErrorLinkyThing)
 ===============
 
-This is a crude Eclipse plugin that inserts hyperlinks to files into the console.  It is written with my own current setup (CDT + GCC + MinGW + addr2line) in mind, but it could easily be adapted for other purposes.  The plugin simply finds text in the console that matches a regex, parses that text as file names and line numbers, and adds the hyperlinks.  It is very simple and was written for casual use on my own local computer, so there are probably situations where it fails.  It is offered here for other users who might otherwise want to make such a plugin for their own casual, local use, and for reference.
+This is a crude Eclipse plugin that inserts hyperlinks to files into the console.  It was written with mjwach's setup (CDT + GCC + MinGW + addr2line) in mind, but has been adapted by Lingoport. Adaptations include Java 7 compatibility. The plugin simply finds text in the console that matches a regex, parses that text as file names and line numbers, and adds the hyperlinks.
 
 This plugin is written for use with Eclipse Luna, version 4.4.0, and is not guaranteed to work with other versions of Eclipse (or even with that one, actually).
 
