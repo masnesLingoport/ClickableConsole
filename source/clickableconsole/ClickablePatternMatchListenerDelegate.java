@@ -1,22 +1,16 @@
-package errorlinkything;
+package clickableconsole;
 
-import java.io.File;
-
-import org.eclipse.core.filesystem.EFS;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IHyperlink;
 import org.eclipse.ui.console.IPatternMatchListenerDelegate;
 import org.eclipse.ui.console.PatternMatchEvent;
 import org.eclipse.ui.console.TextConsole;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-public class ErrorLinkyPatternMatchListenerDelegate implements IPatternMatchListenerDelegate
+public class ClickablePatternMatchListenerDelegate implements IPatternMatchListenerDelegate
 {
 	private TextConsole console;
 
@@ -60,46 +54,19 @@ public class ErrorLinkyPatternMatchListenerDelegate implements IPatternMatchList
 			throw new RuntimeException(exception);
 		}
 	}
-
+	
 	private static IHyperlink makeHyperlink(String absoluteFilePath, int lineNumber)
 	{
-		return new IHyperlink()
-		{
-
-			@Override
-			public void linkExited()
-			{
-			}
-
-			@Override
-			public void linkEntered()
-			{
-			}
-
-			@Override
-			public void linkActivated()
-			{
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				try
-				{
-					IEditorPart editorPart = IDE.openEditorOnFileStore(page, EFS.getStore(new File(absoluteFilePath).toURI()));
-					goToLine(editorPart, lineNumber);
-				}
-				catch (Exception exception)
-				{
-					throw new RuntimeException(exception);
-				}
-			}
-		};
+		return new SetUppableIHyperlink(absoluteFilePath, lineNumber);
 	}
 
-	private static void goToLine(IEditorPart editorPart, int lineNumber)
+	static void goToLine(IEditorPart editorPart, int lineNumber)
 	{
 		if (editorPart instanceof ITextEditor)
 		{
 			ITextEditor textEditor = (ITextEditor) editorPart;
 			IDocument document = textEditor.getDocumentProvider().getDocument(textEditor.getEditorInput());
-			
+
 			if (document != null)
 			{
 				IRegion region = null;
@@ -111,7 +78,7 @@ public class ErrorLinkyPatternMatchListenerDelegate implements IPatternMatchList
 				catch (BadLocationException exception)
 				{
 				}
-				
+
 				if (region != null)
 					textEditor.selectAndReveal(region.getOffset(), region.getLength());
 			}

@@ -4,9 +4,10 @@
    <extension
          point="org.eclipse.ui.console.consolePatternMatchListeners">
       <consolePatternMatchListener
-            class="errorlinkything.ErrorLinkyPatternMatchListenerDelegate"
-            id="ErrorLinkyThing.errorLinkyConsolePatternMatchListener"
-            regex="[A-Za-z]:(\/[^&lt;&gt;:&quot;\/\\\|\?\*]+)+:\d+">
+            class="clickableconsole.ClickablePatternMatchListenerDelegate"
+            id="ClickableConsole.clickableConsolePatternMatchListener"
+            regex="[A-Za-z]:([/\\][^&lt;&gt;:&quot;\/\\\|\?\*]+)+:\d+|(/[^/\n\r]+)+\.[a-zA-Z]+:\d+">
+            <!--                            windows                           linux -->
          <enablement></enablement>
       </consolePatternMatchListener>
    </extension>
